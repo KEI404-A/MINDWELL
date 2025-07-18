@@ -14,7 +14,7 @@
             --text-light: #666666;
             --gradient-primary: linear-gradient(135deg, #ffab3d, #228df8);
             --gradient-secondary: linear-gradient(135deg, #448aff, #3f51b5);
-            --gradient-light: linear-gradient(135deg, #e8eaf6, #ffffff);
+            --gradient-light: linear-gradient(135deg, #caecff, #ffe59d84);
         }
 
         body {
@@ -539,11 +539,26 @@
         }
 
         .services h2 {
+            font-size: 3.5rem;
+            font-weight: 600;
+            background: linear-gradient(90deg, #667eea, #82b4ff, #a1c6fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
             text-align: center;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            color: var(--primary-blue);
-            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .services h2::after {
+            content: "";
+            display: block;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #ffb54e);
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
         }
 
         .services-grid {
