@@ -1393,7 +1393,7 @@
         /* Biofeedback Device Section */
 .biofeedback-section {
     padding: 80px 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3f51a0 0%, #764ba2 100%);
     position: relative;
     overflow: hidden;
 }
@@ -1465,7 +1465,7 @@
     font-size: 3rem;
     font-weight: 800;
     margin-bottom: 10px;
-    background: linear-gradient(135deg, #3f62ffb6, #f89100);
+    background: linear-gradient(135deg, #001b92b6, #ffa11c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
