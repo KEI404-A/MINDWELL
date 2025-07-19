@@ -553,7 +553,7 @@
         .services h2 {
             font-size: 3.5rem;
             font-weight: 600;
-            background: linear-gradient(90deg, #667eea, #82b4ff, #a1c6fe);
+            background: linear-gradient(90deg, #667eea, #82b4ff, #6da6fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
