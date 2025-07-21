@@ -34,8 +34,64 @@
             overflow: hidden;
         }
         
+        .header-content {
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .back-to-home {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #4a90e2, #357abd);
+            box-shadow: 0 4px 15px rgba(53, 122, 189, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            z-index: 10;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .back-to-home svg {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-to-home:hover {
+            background: linear-gradient(135deg, #357abd, #2a6599);
+            transform: translateY(-50%) translateX(5px);
+            box-shadow: 0 6px 20px rgba(53, 122, 189, 0.4);
+        }
+        
+        .back-to-home:hover svg {
+            transform: translateX(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .back-to-home {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .back-to-home svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+        
         .logo {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: clamp(0.75rem, 2vw, 1.5rem);
@@ -757,11 +813,19 @@
 
     <div class="container">
         <div class="header">
-            <div class="logo">
-                <div class="logo-icon">
-                </div>
+            <div class="header-content">
+                <a href="index.html" class="back-to-home">
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                    Kembali ke Beranda
+                </a>
+                <div class="logo">
+                    <div class="logo-icon">
+                    </div>
                     <img src="asset/logo-removebg-preview.png" alt="MindWell Logo" class="logo-text-image">
                 </div>
+            </div>
         </div>
 
         <div class="stats-section">

@@ -1,80 +1,730 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindWell Journal - Your Mental Wellness Journey</title>
-    <meta name="description" content="Jurnal harian MindWell untuk perjalanan kesehatan mental Anda. Catat, refleksi, dan tumbuh bersama MindWell.">
+    <title>Jurnal MindWell - Perjalanan Kesehatan Mental Anda</title>
+    <meta name="description" content="Jurnal harian MindWell untuk perjalanan kesehatan mental Anda. Catat, refleksikan, dan tumbuh bersama MindWell.">
     <meta name="keywords" content="MindWell, jurnal, kesehatan mental, mindfulness, refleksi, wellness">
     <link rel="icon" type="image/png" href="asset/logo-removebg-preview.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --primary-dark: #357abd;
+            --secondary: #764ba2;
+            --light-bg: #f8f9ff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .journal-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+        
+        .journal-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .journal-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .journal-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .journal-meta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .journal-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .journal-meta i {
+            color: var(--primary);
+        }
+        
+        .journal-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .journal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+        
+        .journal-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .journal-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .journal-section h2 {
+            color: var(--primary);
+            margin: 2rem 0 1.2rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .journal-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+        }
+        
+        .journal-section p {
+            margin-bottom: 1.2rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .journal-section ol, .journal-section ul {
+            margin: 1.2rem 0 1.2rem 2rem;
+        }
+        
+        .journal-section li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .journal-section li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Interactive Elements */
+        .prompt-card {
+            background: rgba(74, 144, 226, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.5rem 0;
+            transition: var(--transition);
+        }
+        
+        .prompt-card:hover {
+            transform: translateX(5px);
+            background: rgba(74, 144, 226, 0.1);
+        }
+        
+        .prompt-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .prompt-card p {
+            color: var(--text-light);
+            margin-bottom: 0;
+        }
+        
+        .text-area {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-family: inherit;
+            resize: vertical;
+            transition: var(--transition);
+        }
+        
+        .text-area:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(74, 144, 226, 0.1);
+            transform: none;
+        }
+        
+        /* Notifikasi Mood */
+        .mood-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        
+        .mood-notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .mood-notification-emoji {
+            font-size: 1.5rem;
+        }
+        
+        .mood-notification-text {
+            font-weight: 500;
+            color: var(--text);
+        }
+        
+        /* Mood Tracker */
+        .mood-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .mood-option {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+            padding: 1rem 0.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background: var(--white);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mood-option::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(118, 75, 162, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mood-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mood-option.active {
+            border-color: var(--primary);
+            background: rgba(74, 144, 226, 0.05);
+        }
+        
+        .mood-option.active::after {
+            opacity: 1;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+        
+        .mood-emoji {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .mood-option:hover .mood-emoji {
+            transform: scale(1.2);
+        }
+        
+        .mood-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+        
+        .mood-option.active .mood-label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .journal-container {
+                padding: 1rem;
+            }
+            
+            .journal-header h1 {
+                font-size: 2rem;
+            }
+            
+            .journal-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .mood-option {
+                min-width: 60px;
+                padding: 0.8rem 0.3rem;
+            }
+            
+            .mood-emoji {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Back to Home Button */
+        .back-to-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            margin: 3rem auto 1rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+        
+        .back-to-home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 50px;
+        }
+        
+        .back-to-home:hover::before {
+            opacity: 1;
+        }
+        
+        .back-to-home .back-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .back-to-home .back-text {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-home .back-hover {
+            position: absolute;
+            right: 1.5rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .back-to-home:hover .back-icon {
+            transform: translateX(-5px);
+        }
+        
+        .back-to-home:hover .back-text {
+            transform: translateX(5px);
+        }
+        
+        .back-to-home:hover .back-hover {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Floating Elements */
+        .floating-shape {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            background: var(--primary);
+            top: -50px;
+            right: -50px;
+            filter: blur(60px);
+        }
+        
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary);
+            bottom: -100px;
+            left: -100px;
+            filter: blur(80px);
+        }
+    </style>
 </head>
 <body>
-    <!-- Journal Content -->
-    <div class="journal-container">
+    <!-- Notifikasi Mood -->
+    <div class="mood-notification" id="moodNotification">
+        <span class="mood-notification-emoji" id="moodNotificationEmoji">😊</span>
+        <span class="mood-notification-text" id="moodNotificationText">Perasaan Anda telah dicatat</span>
+    </div>
+    
+    <!-- Floating Background Shapes -->
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+
+    <div class="journal-container animate-fade-in">
         <div class="journal-header">
-            <h1>My MindWell Journey</h1>
+            <h1>Jurnal MindWell Saya</h1>
             <div class="journal-meta">
-                <span><i class="far fa-calendar-alt"></i> July 18, 2025</span>
-                <span><i class="far fa-user"></i> MindWell User</span>
-                <span><i class="far fa-clock"></i> 10 min read</span>
+                <span><i class="far fa-calendar-alt"></i> <span id="current-date"></span></span>
+                <span><i class="far fa-user"></i> Pengguna MindWell</span>
+                <span><i class="far fa-clock"></i> 5 menit membaca</span>
             </div>
         </div>
         
         <div class="journal-content">
             <div class="journal-section">
-                <p>Welcome to your MindWell journal, a sanctuary for your thoughts and a companion on your journey to mental wellness. This is your personal space to explore, reflect, and grow as you navigate the beautiful complexity of your inner world.</p>
+                <p>Selamat datang di jurnal pribadi MindWell Anda, ruang aman untuk refleksi diri dan pertumbuhan. Tarik napas dalam-dalam dan mari kita mulai perjalanan kesehatan mental Anda.</p>
                 
-                <h2>Today's Mindful Moment</h2>
-                <p>As you begin today's journaling, take a deep breath and notice how you're feeling in this moment. There's no need to judge or analyze—simply observe. Your emotions are valid, and this space is here to hold them with care and compassion.</p>
+                <div class="prompt-card">
+                    <h3><i class="fas fa-sun"></i> Niat Hari Ini</h3>
+                    <p>Tetapkan niat positif untuk hari Anda. Energi apa yang ingin Anda bawa hari ini?</p>
+                    <textarea class="text-area" placeholder="Hari ini, saya memilih untuk..."></textarea>
+                </div>
                 
-                <h2>Mindful Check-in</h2>
-                <p>Let's check in with your current state of being:</p>
-                <ol>
-                    <li>Where in your body are you holding tension right now?</li>
-                    <li>What emotions are present for you in this moment?</li>
-                    <li>What thoughts keep returning to your awareness?</li>
-                </ol>
+                <h2>Periksa Perasaan Anda</h2>
+                <p>Bagaimana perasaan Anda saat ini? Pilih emoji yang paling mewakili kondisi Anda.</p>
                 
-                <h2>Mindfulness Exercise: The 5-4-3-2-1 Grounding Technique</h2>
-                <p>When feeling overwhelmed, try this simple exercise to bring yourself back to the present:</p>
-                <ol>
-                    <li><strong>5 things</strong> you can see around you</li>
-                    <li><strong>4 things</strong> you can touch or feel</li>
-                    <li><strong>3 things</strong> you can hear right now</li>
-                    <li><strong>2 things</strong> you can smell (or like the smell of)</li>
-                    <li><strong>1 thing</strong> you can taste</li>
-                </ol>
+                <div class="mood-tracker">
+                    <div class="mood-option" data-mood="terrible">
+                        <span class="mood-emoji">😔</span>
+                        <span class="mood-label">Sangat Buruk</span>
+                    </div>
+                    <div class="mood-option" data-mood="sad">
+                        <span class="mood-emoji">😕</span>
+                        <span class="mood-label">Sedih</span>
+                    </div>
+                    <div class="mood-option" data-mood="neutral">
+                        <span class="mood-emoji">😐</span>
+                        <span class="mood-label">Biasa Saja</span>
+                    </div>
+                    <div class="mood-option" data-mood="good">
+                        <span class="mood-emoji">🙂</span>
+                        <span class="mood-label">Baik</span>
+                    </div>
+                    <div class="mood-option" data-mood="great">
+                        <span class="mood-emoji">😊</span>
+                        <span class="mood-label">Sangat Baik</span>
+                    </div>
+                </div>
                 
-                <h2>Gratitude Practice</h2>
-                <p>Gratitude transforms what we have into enough. List three things you're grateful for today:</p>
-                <ol>
-                    <li>One person who brings joy to your life</li>
-                    <li>One aspect of your physical or mental health you appreciate</li>
-                    <li>One simple pleasure from today that made you smile</li>
-                </ol>
+                <h2>Refleksi Diri</h2>
+                <p>Luangkan waktu sejenak untuk merenungkan pertanyaan-pertanyaan ini. Tidak ada jawaban yang benar atau salah—yang penting jujur pada diri sendiri.</p>
                 
-                <h2>Daily Intention & Affirmation</h2>
-                <p>Set a positive intention for your day. For example: "Today, I choose to be kind to myself and others."</p>
-                <p>Now, write a personal affirmation that supports this intention. Remember to use present tense and positive language, such as: "I am capable of handling whatever comes my way with grace and strength."</p>
+                <div class="prompt-card">
+                    <h3><i class="fas fa-pen"></i> Apa yang ada di pikiranmu hari ini?</h3>
+                    <p>Tuliskan dengan bebas tentang pikiran, perasaan, atau apapun yang mengganggu pikiranmu.</p>
+                    <textarea class="text-area" placeholder="Mulai menulis di sini..."></textarea>
+                </div>
                 
-                <h2>Weekly Reflection</h2>
-                <p>Looking back on your week, consider these prompts:</p>
-                <ul>
-                    <li>What was my biggest challenge this week, and how did I handle it?</li>
-                    <li>When did I feel most at peace this week?</li>
-                    <li>What's one small step I can take next week to support my mental wellbeing?</li>
-                </ul>
+                <div class="prompt-card">
+                    <h3><i class="fas fa-heart"></i> Latihan Bersyukur</h3>
+                    <p>Sebutkan tiga hal yang Anda syukuri hari ini, tidak peduli seberapa besar atau kecilnya.</p>
+                    <ol>
+                        <li><input type="text" class="text-area" placeholder="Saya bersyukur untuk..." style="width: 100%; padding: 0.5rem; margin: 0.3rem 0;"></li>
+                        <li><input type="text" class="text-area" placeholder="Saya bersyukur untuk..." style="width: 100%; padding: 0.5rem; margin: 0.3rem 0;"></li>
+                        <li><input type="text" class="text-area" placeholder="Saya bersyukur untuk..." style="width: 100%; padding: 0.5rem; margin: 0.3rem 0;"></li>
+                    </ol>
+                </div>
+                
+                <h2>Ceritakan Harimu</h2>
+                <p>Luangkan waktu sejenak untuk merefleksikan hari Anda sejauh ini. Bagaimana perjalanan harian Anda?</p>
+                
+                <div class="prompt-card">
+                    <h3><i class="fas fa-book-open"></i> Catatan Harian Saya</h3>
+                    <p>Anda bisa menceritakan:</p>
+                    <ul>
+                        <li><strong>Pencapaian</strong> kecil atau besar hari ini</li>
+                        <li><strong>Tantangan</strong> yang Anda hadapi</li>
+                        <li><strong>Momen berharga</strong> yang membuat Anda tersenyum</li>
+                        <li><strong>Perasaan</strong> yang Anda alami sepanjang hari</li>
+                        <li><strong>Rencana</strong> untuk besok atau sisa hari ini</li>
+                    </ul>
+                    <textarea class="text-area" placeholder="Tuliskan cerita harian Anda di sini..."></textarea>
+                </div>
+                
+                <h2>Afirmasi Harian</h2>
+                <p>Tulis atau pilih afirmasi positif untuk menemani hari Anda.</p>
+                
+                <div class="prompt-card">
+                    <h3><i class="fas fa-quote-left"></i> Afirmasi Saya</h3>
+                    <p>Saya <input type="text" placeholder="kuat, berharga, cukup..." style="border: none; border-bottom: 2px solid #e2e8f0; padding: 0.3rem; font-size: 1.1rem; color: var(--primary); font-weight: 600; width: auto; max-width: 200px;">.</p>
+                    <p>Saya memilih untuk <input type="text" placeholder="menerima, mensyukuri, merayakan..." style="border: none; border-bottom: 2px solid #e2e8f0; padding: 0.3rem; font-size: 1.1rem; color: var(--primary); font-weight: 600; width: auto; max-width: 200px;"> diri saya hari ini.</p>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-top: 3rem; flex-wrap: wrap; gap: 1rem;">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-save"></i> Simpan Sebagai Draf
+                    </button>
+                    <button class="btn">
+                        <i class="fas fa-check"></i> Selesai
+                    </button>
+                </div>
             </div>
             
             <a href="index.html" class="back-to-home">
-                <i class="fas fa-arrow-left"></i> Back to Home
+                <span class="back-icon">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="back-text">Kembali ke Beranda</span>
+                <span class="back-hover">
+                    <i class="fas fa-home"></i>
+                </span>
             </a>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Set current date
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('id-ID', options);
+        
+        // Konfigurasi notifikasi mood
+        const moodMessages = {
+            'terrible': {
+                emoji: '😔',
+                message: 'Hari yang berat ya? Ingatlah bahwa perasaan ini sementara. Kamu lebih kuat dari yang kamu kira.'
+            },
+            'sad': {
+                emoji: '😕',
+                message: 'Tidak apa-apa merasa sedih. Setiap perasaan adalah bagian dari pengalaman manusia.'
+            },
+            'neutral': {
+                emoji: '😐',
+                message: 'Terkadang biasa-biasa saja juga tidak apa. Setiap hari adalah kesempatan baru.'
+            },
+            'good': {
+                emoji: '🙂',
+                message: 'Senang mendengarnya! Semoga harimu terus menyenangkan.'
+            },
+            'great': {
+                emoji: '😊',
+                message: 'Luar biasa! Semangat positifmu menginspirasi orang di sekitarmu.'
+            }
+        };
+        
+        // Mood selection
+        const moodOptions = document.querySelectorAll('.mood-option');
+        const moodNotification = document.getElementById('moodNotification');
+        const moodNotificationEmoji = document.getElementById('moodNotificationEmoji');
+        const moodNotificationText = document.getElementById('moodNotificationText');
+        
+        moodOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove active class from all options
+                moodOptions.forEach(opt => opt.classList.remove('active'));
+                // Add active class to clicked option
+                option.classList.add('active');
+                
+                // Get mood data
+                const mood = option.dataset.mood;
+                const moodData = moodMessages[mood];
+                
+                // Update notification
+                moodNotificationEmoji.textContent = moodData.emoji;
+                moodNotificationText.textContent = moodData.message;
+                
+                // Show notification
+                moodNotification.classList.add('show');
+                
+                // Hide notification after 5 seconds
+                setTimeout(() => {
+                    moodNotification.classList.remove('show');
+                }, 5000);
+                
+                // Optional: Add to journal entry or send to server
+                console.log(`Mood selected: ${mood}`);
+            });
+        });
+        
+        // Smooth scroll to sections
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Auto-resize textareas
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        });
+        
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.prompt-card, h2').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
