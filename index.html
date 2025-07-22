@@ -27,14 +27,29 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="menu-toggle" id="menuToggle">
+            <div class="burger" id="burger" onclick="toggleMenu(this)">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
         </div>
     </nav>
-    <div class="overlay" id="overlay"></div>
+
+    <script>
+        function toggleMenu(el) {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+            el.classList.toggle('active');
+        }
+        document.querySelectorAll('#navLinks a').forEach(link => {
+            link.addEventListener('click', () => {
+            document.getElementById('navLinks').classList.remove('active');
+            document.getElementById('burger').classList.remove('active');
+            });
+        });
+        </script>
+
+
 
     <!-- Hero Section -->
     <section id="home" class="hero">
